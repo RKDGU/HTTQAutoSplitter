@@ -1,5 +1,5 @@
 Autosplitter for Hype - The Time Quest Version V1
-RayKinDar 2023 httqsplitter@yamihub.net and some code snippets used from Healer_hg 2021 https://github.com/hugarada
+RayKinDar 2023 https://github.com/RKGGU and some code snippets used from Healer_hg 2021 https://github.com/hugarada
 Join the HTTQ Discord https://discord.gg/PGqVJTP
 For additional docs see: https://github.com/LiveSplit/LiveSplit.AutoSplitters
 
