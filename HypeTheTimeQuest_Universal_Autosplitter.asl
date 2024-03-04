@@ -3,6 +3,9 @@
 //Join the HTTQ Discord https://discord.gg/PGqVJTP
 //For additional docs see: https://github.com/LiveSplit/LiveSplit.AutoSplitters
 
+//RKD 2024 V2 Changelog: added the change to gametime prompt in the startup | used code from: SabulineHorizon Aquanox
+//			 added option to disable the above
+
 //If you understand the base routine please notify me. I don't understand it anymore, it became a messy patching hell.
 
 state("MAIDFXVR_BLEU")
@@ -28,6 +31,7 @@ startup
 {
 	//For extra settings to enable in the GUI
 	settings.Add("NoSplits", false, "Disable Splitting / Manual Splitting / only auto Start and Finish");
+	settings.Add("NoGameTimePrompt", false, "Disable the prompt asking for the change to GameTime");
 }
 
 init
@@ -35,6 +39,20 @@ init
 	//program & settings
 	refreshRate = 47; // adjusted for HTTQ framerate, whether this is good or not: "I don't know"
 	
+	// Asks user to change to Game Time if LiveSplit is currently set to Real Time | credit: SabulineHorizon Aquanox | modified: RKD
+	if (timer.CurrentTimingMethod == TimingMethod.RealTime && settings["NoGameTimePrompt"] == false){
+		var timingMessage = MessageBox.Show (
+			"This game uses Game Time as the main timing method.\n"+
+			"LiveSplit is currently set to show Real Time (with loads)\n"+
+			"Would you like to set the timing method to Game Time?",
+			"LiveSplit | Hype The Time Quest",
+			MessageBoxButtons.YesNo,MessageBoxIcon.Question
+		);
+		if (timingMessage == DialogResult.Yes){
+			timer.CurrentTimingMethod = TimingMethod.GameTime;
+		}
+	}
+
 	//baselevel variables
 	vars.Vhoid = false; 			// this variable handles the endboss fight and divides it into two segments. One after the Vhoid Cutscene and one before.
 	vars.LoadingStateHelper = false; 	// this variable ensures that the timer does not get stopped on savepedastels death animation and transitions
